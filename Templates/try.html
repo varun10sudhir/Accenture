@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  >
+  <style>
+    /* Reset some default styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center horizontally */
+      justify-content: center; /* Center vertically */
+      height: 100vh; /* Make the body fill the viewport height */
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #5E00A7; /* Purple background color */
+      color: #fff; /* Text color */
+      padding: 10px; /* Add padding for spacing */
+      display: flex;
+      align-items: center; /* Center vertically */
+      position: absolute; /* Position absolutely within the body */
+      top: 0; /* Place at the top */
+      left: 0; /* Place at the left */
+    }
+
+    /* Back icon styles */
+    .back-icon {
+      font-size: 24px; /* Adjust the size of the icon */
+      margin-right: 10px; /* Add spacing between the icon and text */
+    }
+
+    /* Square container styles */
+    .square {
+      width: 40px; /* Adjust the size of the square */
+      height: 40px; /* Adjust the size of the square */
+      background-color: #5E00A7; /* Purple background color */
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      border-radius: 5px; /* Rounded corners */
+    }
+
+    /* Gray rectangle box styles */
+    .gray-box {
+      background-color: #ccc; /* Gray background color */
+      width: 650px; /* Adjust the width of the box */
+      height: 400px; /* Adjust the height of the box */
+      margin-top: 10px; /* Push the box higher */
+      padding: 20px; /* Add padding inside the box */
+      text-align: center; /* Center text horizontally */
+    }
+
+    /* Text below the gray box */
+    .text-below {
+        font-size: 16px; /* Adjust the font size */
+        margin-top: 20px; /* Add spacing between the gray box and the text */
+        text-align: left; /* Align the text to the left */
+        margin-left: 10px; /* Add left margin for positioning */
+        color: #5E00A7;
+      }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="square">
+      <i class="back-icon fas fa-arrow-left"></i> <!-- Font Awesome back icon -->
+    </div>
+  </header>
+  <h2>View all the latest info on your project!</h2>
+  <div class="gray-box">
+    <!-- Content inside the gray box -->
+    <p>This is the adjusted gray-colored rectangle box in the center of the page.</p>
+  </div>
+  <p class="text-below">Issues Raised ()</p> <!-- Add text below the gray box -->
+</body>
+</html>
