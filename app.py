@@ -16,7 +16,7 @@ class Todo(db.Model):
 
 @app.route("/")
 def home():
-    return render_template('DHomePage.html')
+    return render_template('index.html')
 
 @app.route("/tasks")
 def tasks():
