@@ -1,176 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    /* Reset some default styles */
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        position: relative; /* Set position to relative */
+      }
 
-    .header {
-      background-color: #5E00A7;
-      color: #fff;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+      .purple-square {
+        width: 75px;
+        height: 75px;
+        background-color: #5e00a7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute; /* Position absolutely within the body */
+        top: 0; /* Place at the top */
+        left: 0; /* Place at the left */
+      }
 
-    .purple-square {
-      width: 75px;
-      height: 75px;
-      background-color: #5E00A7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      top: 5px;
-      left: 5px;
-    }
+      .back-icon {
+        font-size: 24px;
+        margin-right: 10px;
+      }
 
-    .back-icon {
-      font-size: 24px;
-      margin-right: 10px;
-    }
+      .header {
+        background-color: #5e00a7;
+        width: 50px;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 1; /* Set a higher z-index to place it above the square */
+      }
 
-    .gray-boxes {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      margin-top: 20px;
-    }
+      .gray-boxes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        margin-top: 20px;
+      }
 
-    .gray-box {
-      width: 600px;
-      height: 150px;
-      background-color: #ccc;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      margin: 10px 0;
-      padding-left: 20px;
-      position: relative;
-      border-radius: 10px;
-    }
+      .gray-box {
+        width: 600px;
+        height: 250px;
+        background-color: #ccc;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 10px 0;
+        padding-left: 20px;
+        position: relative;
+        border-radius: 10px;
+      }
 
-    .gray-box1 {
-      width: 650px;
-      height: 50px;
-      background-color: #ccc;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      margin: 10px 0;
-      padding-left: 20px;
-      position: relative;
-      border-radius: 10px;
-    }
+      .box-text {
+        font-size: 20px;
+      }
 
-    .box-text {
-      font-size: 20px;
-    }
+      .profile-photo {
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        border: 2px solid #5e00a7;
+        border-radius: 50%;
+        position: absolute;
+        top: -21px;
+        left: -21px;
+      }
 
-    .text {
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
+      /* New CSS class for the red dotted border */
+      .red-dotted-border {
+        border: 2px dotted red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
 
-    .text2 {
-      font-size: large;
-    }
+      /* Adjust the styles for the "Upload file" input field */
+      .file input[type="file"] {
+        display: none;
+      }
 
-    .profile-photo {
-      width: 40px;
-      height: 40px;
-      background-color: #fff;
-      border: 2px solid #5E00A7;
-      border-radius: 50%;
-      position: absolute;
-      top: -21px;
-      left: -21px;
-    }
+      .file label {
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: large;
+      }
 
-    .input-field {
-      width: 95%;
-      padding: 10px;
-      margin-left: 0px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-    }
+      a:link {
+        color: white;
+      }
 
-    .input-field1 {
-      width: 95%;
-      padding: 10px;
-      margin-left: 0px;
-      height: 80%;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-    }
+      a:visited {
+        color: white;
+      }
 
-    /* New CSS class for the red dotted border */
-    .red-dotted-border {
-      border: 2px dotted red;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+      a:hover {
+        color: white;
+      }
 
-    /* Adjust the styles for the "Upload file" input field */
-    .file input[type="file"] {
-      display: none;
-    }
+      a:active {
+        color: white;
+      }
 
-    .file label {
-      background-color: #ccc;
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: large;
-    }
-  </style>
-</head>
-<body>
-  <header class="header">
+      a:link,
+      a:visited {
+        text-decoration: none;
+      }
+
+      .top-right-circle {
+        width: 60px;
+        height: 60px;
+        background-color: #fff;
+        border: 2px solid #5e00a7;
+        border-radius: 50%;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .circle-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .form-control {
+        width: 50%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        margin-right: 20px; /* Adjusted margin-right */
+      }
+
+      h2 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
     <div class="purple-square">
-      <i class="back-icon fas fa-arrow-left"></i>
+      <!-- Purple square in top-left corner -->
+      <a class="side" href="/"><i class="back-icon fas fa-arrow-left"></i></a>
     </div>
-  </header>
-
-  <!-- Top-right circle -->
-  <div class="top-right-circle"></div>
-  <h2 class="text">New commits - Update your clients with the latest progress in the project!</h2>
-  <div class="gray-boxes">
-    <div class="gray-box1">
-      <input type="text" class="input-field" placeholder="Enter commit header">
+    <header class="header">
+     
+    </header>
+    <h2>New commits - Update your clients with the latest progress in the project!</h2>
+    <br>
+    <!-- Rest of your content -->
+    <div class="top-right-circle">
+      <img class="circle-image" src="../static/pfp.png" alt="Profile" />
     </div>
-    <div class="gray-box red-dotted-border"> <!-- Add the red-dotted-border class here -->
-      <div class="file">
-        <input type="file" id="fileu">
-        <label for="fileu">Upload file</label>
+    <form method="post" class="form-register">
+      {{ form.header(class = "form-control", placeholder="Enter the title") }}
+      <div class="gray-box red-dotted-border">
+        <div class="file">
+          <input type="file" id="fileu" />
+          <label for="fileu">Upload file</label>
+        </div>
       </div>
-    </div>
-    <div class="gray-box">
-      <input type="text" class="input-field1" placeholder="Enter a description of the changes made!">
-    </div>
-  </div>
-</body>
+      {{ form.description(class = "form-control", placeholder="Enter a description") }}
+
+      <script src="script.js"></script>
+    </form>
+  </body>
 </html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Input Image With Preview Image</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      :root {
+        --blue: #0071ff;
+        --light-blue: #b6dbf6;
+        --dark-blue: #005dd1;
+        --grey: #f2f2f2;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: white;
+      }
+
+      .container {
+        max-width: 400px;
+        width: 100%;
+        background: #fff;
+        padding: 30px;
+        border-radius: 30px;
+      }
+      .img-area {
+        position: relative;
+        width: 100%;
+        height: 240px;
+        background: var(--grey);
+        margin-bottom: 30px;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .img-area .icon {
+        font-size: 100px;
+      }
+      .img-area h3 {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+      .img-area p {
+        color: #999;
+      }
+      .img-area p span {
+        font-weight: 600;
+      }
+      .img-area img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 100;
+      }
+      .img-area::before {
+        content: attr(data-img);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-weight: 500;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: all 0.3s ease;
+        z-index: 200;
+      }
+      .img-area.active:hover::before {
+        opacity: 1;
+      }
+      .select-image {
+        display: block;
+        width: 100%;
+        padding: 16px 0;
+        border-radius: 15px;
+        background: var(--blue);
+        color: #fff;
+        font-weight: 500;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .select-image:hover {
+        background: var(--dark-blue);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        margin-right: 20px; /* Adjusted margin-right */
+      }
+
+      .top-right-circle {
+        width: 60px;
+        height: 60px;
+        background-color: #fff;
+        border: 2px solid #5e00a7;
+        border-radius: 50%;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .circle-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .purple-square {
+        width: 75px;
+        height: 75px;
+        background-color: #5e00a7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute; /* Position absolutely within the body */
+        top: 0; /* Place at the top */
+        left: 0; /* Place at the left */
+      }
+
+      .back-icon {
+        font-size: 24px;
+        margin-right: 10px;
+      }
+
+      a:link {
+        color: white;
+      }
+
+      a:visited {
+        color: white;
+      }
+
+      a:hover {
+        color: white;
+      }
+
+      a:active {
+        color: white;
+      }
+
+      a:link,
+      a:visited {
+        text-decoration: none;
+      }
+
+
+      /* CHATBOX
+=============== */
+.chatbox {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+/* CONTENT IS CLOSE */
+.chatbox__support {
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    width: 300px;
+    height: 350px;
+    z-index: -123456;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+}
+
+/* CONTENT ISOPEN */
+.chatbox--active {
+    transform: translateY(-40px);
+    z-index: 123456;
+    opacity: 1;
+
+}
+
+/* BUTTON */
+.chatbox__button {
+    text-align: right;
+}
+
+.send__button {
+    padding: 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+/* HEADER */
+.chatbox__header {
+    position: sticky;
+    top: 0;
+    background: orange;
+}
+
+/* MESSAGES */
+.chatbox__messages {
+    margin-top: auto;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+}
+
+.messages__item {
+    background: orange;
+    max-width: 60.6%;
+    width: fit-content;
+}
+
+.messages__item--operator {
+    margin-left: auto;
+}
+
+.messages__item--visitor {
+    margin-right: auto;
+}
+
+/* FOOTER */
+.chatbox__footer {
+    position: sticky;
+    bottom: 0;
+}
+
+.chatbox__support {
+    background: #f9f9f9;
+    height: 450px;
+    width: 350px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* HEADER */
+.chatbox__header {
+    background: var(--primaryGradient);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: var(--primaryBoxShadow);
+}
+
+.chatbox__image--header {
+    margin-right: 10px;
+}
+
+.chatbox__heading--header {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.chatbox__description--header {
+    font-size: .9rem;
+    color: purple;
+}
+
+/* Messages */
+.chatbox__messages {
+    padding: 0 20px;
+}
+
+.messages__item {
+    margin-top: 10px;
+    background: #E0E0E0;
+    padding: 8px 12px;
+    max-width: 70%;
+}
+
+.messages__item--visitor,
+.messages__item--typing {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.messages__item--operator {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: var(--primary);
+    color: white;
+}
+
+/* FOOTER */
+.chatbox__footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: var(--secondaryGradient);
+    box-shadow: var(--secondaryBoxShadow);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 20px;
+}
+
+.chatbox__footer input {
+    width: 80%;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 30px;
+    text-align: left;
+}
+
+.chatbox__send--footer {
+    color: white;
+}
+
+.chatbox__button button,
+.chatbox__button button:focus,
+.chatbox__button button:visited {
+    padding: 10px;
+    background: white;
+    border: none;
+    outline: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+    </style>
+  </head>
+  <body>
+    <div class="purple-square">
+      <!-- Purple square in top-left corner -->
+      <a class="side" href="/"><i class="back-icon fas fa-arrow-left"></i></a>
+    </div>
+    <div class="top-right-circle">
+      <img class="circle-image" src="../static/pfp.png" alt="Profile" />
+    </div>
+    <div class="container">
+      <h2>New commit- Update your client!</h2>
+      <br />
+      <form method="post" class="form-register">
+        {{ form.header(class = "form-control", placeholder="Enter the title") }}
+        <input type="file" id="file" accept="image/*" hidden />
+        <div class="img-area" data-img="">
+          <i class="bx bxs-cloud-upload icon"></i>
+          <h3>Upload Image</h3>
+          <p>Image size must be less than <span>2MB</span></p>
+        </div>
+        <button class="select-image">Select Image</button>
+        <br />
+        <br />
+        {{ form.description(class = "form-control", placeholder="Enter the description") }}
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="chatbox">
+          <div class="chatbox__support">
+              <div class="chatbox__header">
+                  <div class="chatbox__image--header">
+                      <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                  </div>
+                  <div class="chatbox__content--header">
+                      <h4 class="chatbox__heading--header">Chat support</h4>
+                      <p class="chatbox__description--header">Hi. My name is Sam. How can I help you?</p>
+                  </div>
+              </div>
+              <div class="chatbox__messages">
+                  <div></div>
+              </div>
+              <div class="chatbox__footer">
+                  <input type="text" placeholder="Write a message...">
+                  <button class="chatbox__send--footer send__button">Send</button>
+              </div>
+          </div>
+          <div class="chatbox__button">
+              <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+          </div>
+      </div>
+      <script src="../static/app.js"></script>
+  </div>
+
+    <script>
+      const selectImage = document.querySelector(".select-image");
+      const inputFile = document.querySelector("#file");
+      const imgArea = document.querySelector(".img-area");
+
+      selectImage.addEventListener("click", function () {
+        inputFile.click();
+      });
+
+      inputFile.addEventListener("change", function () {
+        const image = this.files[0];
+        if (image.size < 2000000) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const allImg = imgArea.querySelectorAll("img");
+            allImg.forEach((item) => item.remove());
+            const imgUrl = reader.result;
+            const img = document.createElement("img");
+            img.src = imgUrl;
+            imgArea.appendChild(img);
+            imgArea.classList.add("active");
+            imgArea.dataset.img = image.name;
+          };
+          reader.readAsDataURL(image);
+        } else {
+          alert("Image size more than 2MB");
+        }
+      });
+    </script>
+  </body>
+</html>

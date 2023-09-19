@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  >
+  <style>
+    /* Reset some default styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center horizontally */
+      justify-content: center; /* Center vertically */
+      height: 100vh; /* Make the body fill the viewport height */
+    }
+
+    /* Header styles */
+    .header {
+      background-color: #5E00A7; /* Purple background color */
+      color: #fff; /* Text color */
+      padding: 10px; /* Add padding for spacing */
+      display: flex;
+      align-items: center; /* Center vertically */
+      position: absolute; /* Position absolutely within the body */
+      top: 0; /* Place at the top */
+      left: 0; /* Place at the left */
+    }
+
+    /* Back icon styles */
+    .back-icon {
+      font-size: 24px; /* Adjust the size of the icon */
+      margin-right: 10px; /* Add spacing between the icon and text */
+    }
+
+    /* Square container styles */
+    .square {
+      width: 40px; /* Adjust the size of the square */
+      height: 40px; /* Adjust the size of the square */
+      background-color: #5E00A7; /* Purple background color */
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      border-radius: 5px; /* Rounded corners */
+    }
+
+    a:link {
+      color: white;
+    }
+
+    a:visited {
+      color: white;
+    }
+
+    a:hover {
+      color: white;
+    }
+
+    a:active {
+      color: white;
+    }
+
+    a:link,
+    a:visited {
+      text-decoration: none;
+    }
+
+    /* CHATBOX
+=============== */
+.chatbox {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+/* CONTENT IS CLOSE */
+.chatbox__support {
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    width: 300px;
+    height: 350px;
+    z-index: -123456;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+}
+
+/* CONTENT ISOPEN */
+.chatbox--active {
+    transform: translateY(-40px);
+    z-index: 123456;
+    opacity: 1;
+
+}
+
+/* BUTTON */
+.chatbox__button {
+    text-align: right;
+}
+
+.send__button {
+    padding: 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+/* HEADER */
+.chatbox__header {
+    position: sticky;
+    top: 0;
+    background: orange;
+}
+
+/* MESSAGES */
+.chatbox__messages {
+    margin-top: auto;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+}
+
+.messages__item {
+    background: orange;
+    max-width: 60.6%;
+    width: fit-content;
+}
+
+.messages__item--operator {
+    margin-left: auto;
+}
+
+.messages__item--visitor {
+    margin-right: auto;
+}
+
+/* FOOTER */
+.chatbox__footer {
+    position: sticky;
+    bottom: 0;
+}
+
+.chatbox__support {
+    background: #f9f9f9;
+    height: 450px;
+    width: 350px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* HEADER */
+.chatbox__header {
+    background: var(--primaryGradient);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: var(--primaryBoxShadow);
+}
+
+.chatbox__image--header {
+    margin-right: 10px;
+}
+
+.chatbox__heading--header {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.chatbox__description--header {
+    font-size: .9rem;
+    color: white;
+}
+
+/* Messages */
+.chatbox__messages {
+    padding: 0 20px;
+}
+
+.messages__item {
+    margin-top: 10px;
+    background: #E0E0E0;
+    padding: 8px 12px;
+    max-width: 70%;
+}
+
+.messages__item--visitor,
+.messages__item--typing {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.messages__item--operator {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: var(--primary);
+    color: white;
+}
+
+/* FOOTER */
+.chatbox__footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: var(--secondaryGradient);
+    box-shadow: var(--secondaryBoxShadow);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 20px;
+}
+
+.chatbox__footer input {
+    width: 80%;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 30px;
+    text-align: left;
+}
+
+.chatbox__send--footer {
+    color: white;
+}
+
+.chatbox__button button,
+.chatbox__button button:focus,
+.chatbox__button button:visited {
+    padding: 10px;
+    background: white;
+    border: none;
+    outline: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+    /* Gray rectangle box styles */
+    .gray-box {
+      background-color: #ccc; /* Gray background color */
+      width: 650px; /* Adjust the width of the box */
+      height: 400px; /* Adjust the height of the box */
+      margin-top: 10px; /* Push the box higher */
+      padding: 20px; /* Add padding inside the box */
+      text-align: center; /* Center text horizontally */
+      position: relative; /* Add relative positioning to the gray box */
+    }
+
+    /* Text below the gray box */
+    .text-below {
+      font-size: 16px; /* Adjust the font size */
+      margin-top: 20px; /* Add spacing between the gray box and the text */
+      text-align: left; /* Align the text to the left */
+      margin-left: 10px; /* Add left margin for positioning */
+      color: #5E00A7;
+    }
+
+    .top-left-profile-photo {
+      width: 40px; /* Adjust the size of the circle */
+      height: 40px; /* Adjust the size of the circle */
+      background-color: #fff; /* White background color */
+      border: 2px solid #5e00a7; /* Purple border for the circle */
+      border-radius: 50%; /* Make it a circle */
+      position: absolute; /* Position absolutely within the gray box */
+      top: 70px; /* Adjust the top position */
+      left: calc(50% - 345px); /* Adjust the left position */
+    }
+
+    .top-left2-profile-photo {
+      width: 40px; /* Adjust the size of the circle */
+      height: 40px; /* Adjust the size of the circle */
+      background-color: #fff; /* White background color */
+      border: 2px solid #5e00a7; /* Purple border for the circle */
+      border-radius: 50%; /* Make it a circle */
+      position: absolute; /* Position absolutely within the gray box */
+      top: 580px; /* Adjust the top position */
+      left: calc(50% - 345px); /* Adjust the left position */
+    }
+
+    .circle-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .top-right-circle {
+      width: 80px; /* Adjust the size of the circle */
+      height: 80px; /* Adjust the size of the circle */
+      background-color: #fff; /* White background color */
+      border: 2px solid #5e00a7; /* Purple border for the circle */
+      border-radius: 50%; /* Make it a circle */
+      position: absolute; /* Position absolutely in the top-right corner */
+      top: 10px; /* Adjust the top position */
+      right: 10px; /* Adjust the right position */
+      display: flex;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+    }
+
+    .img {
+      width: 60%;
+      height: 60%;
+    }
+
+    /* Gray box below "Issues Raised" */
+    .gray-box-below-issues {
+      background-color: #ccc; /* Gray background color */
+      width: 650px; /* Adjust the width of the box */
+      height: 50px; /* Adjust the height of the box */
+      margin-top: 10px; /* Push the box higher */
+      text-align: center; /* Center text horizontally */
+      position: relative; /* Add relative positioning to the gray box */
+    }
+
+    /* Reply link */
+    .reply-link {
+      position: absolute;
+      bottom: 5px; /* Adjust the bottom position */
+      right: 5px; /* Adjust the right position */
+      cursor: pointer;
+      color: #5E00A7;
+      text-decoration: underline;
+    }
+
+    /* Reply input box */
+    .reply-input-box {
+  width: 100%; /* Make the input box wider */
+  height: 60px; /* Make the input box taller */
+  display: none; /* Initially hidden */
+  position: absolute;
+  bottom: -70px; /* Adjust the bottom position */
+  right: 5px; /* Adjust the right position */
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="square">
+      <a class="side" href="/"><i class="back-icon fas fa-arrow-left"></i></a>
+    </div>
+  </header>
+  <div class="top-right-circle">
+    <img class="circle-image" src="../static/pfp.png" alt="Profile" />
+  </div>
+  <div class="top-left-profile-photo">
+    <img class="circle-image" src="../static/taniya.png" alt="Profile" />
+  </div>
+  <h2>View all the latest info on your project!</h2>
+  <div class="gray-box">
+    <h2>Navbar Updates!</h2>
+    <img class="img" src="../static/navbar2.jpg" alt="Progress on project">
+    <p>This is how the navbar is looking at the moment. Are you satisfied with the colors chosen?
+      We are still working on adding more features! 
+    <br>
+    Please do let us know what you think, and we will add it!
+    </p>
+  </div>
+  <p class="text-below">Issues Raised (1)</p> <!-- Add text below the gray box -->
+
+  <div class="top-left2-profile-photo">
+    <img class="circle-image" src="../static/abhi.png" alt="Profile" />
+  </div>
+  <div class="gray-box-below-issues">
+    <h4>Hi, could the color be a lighter shade of purple? Great work tho</h2>
+    <div class="reply-link" onclick="toggleReplyInput()">Reply</div>
+    <div class="reply-input-box">
+      <input type="text" placeholder="Type your reply..." />
+    </div>
+  </div>
+
+  <div class="container">
+      <div class="chatbox">
+          <div class="chatbox__support">
+              <div class="chatbox__header">
+                  <div class="chatbox__image--header">
+                      <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                  </div>
+                  <div class="chatbox__content--header">
+                      <h4 class="chatbox__heading--header">Chat support</h4>
+                      <p class="chatbox__description--header">Hi. My name is Sam. How can I help you?</p>
+                  </div>
+              </div>
+              <div class="chatbox__messages">
+                  <div></div>
+              </div>
+              <div class="chatbox__footer">
+                  <input type="text" placeholder="Write a message...">
+                  <button class="chatbox__send--footer send__button">Send</button>
+              </div>
+          </div>
+          <div class="chatbox__button">
+              <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+          </div>
+      </div>
+  </div>
+  
+      <script src="../static/app.js"></script>
+
+  <script>
+    function toggleReplyInput() {
+      const replyInputBox = document.querySelector(".reply-input-box");
+      replyInputBox.style.display =
+        replyInputBox.style.display === "block" ? "none" : "block";
+    }
+  </script>
+</body>
+</html>
